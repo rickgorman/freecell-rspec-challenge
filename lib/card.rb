@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
+### card.rb -- sourced from Practice Assessment #2 (BlackJack)
 
-# card.rb -- sourced from Practice Assessment #2 (BlackJack)
+
+# -*- coding: utf-8 -*-
 
 # Represents a playing card.
 class Card

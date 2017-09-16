@@ -1,6 +1,9 @@
 ### deck.rb -- this file sourced from blackjack practice assessment
 require_relative 'card'
 
+class EmptyDeckException < StandardError
+end
+
 # Represents a deck of playing cards.
 class Deck
   # Returns an array of all 52 playing cards.
@@ -25,7 +28,7 @@ class Deck
 
   # Takes `n` cards from the top of the deck.
   def take(n)
-    raise "not enough cards" unless n <= count
+    raise EmptyDeckException.new("not enough cards") unless n <= count
 
     taken = []
     n.times { taken << @cards.shift }
