@@ -15,6 +15,8 @@ describe Foundation do
     it 'requires the first card added to be an ace' do
       expect { foundation.append(clubs2) }.to raise_error("expecting an ace")
       expect(foundation.append(clubsA)).to be_truthy
+      expect(foundation.pile[0].suit).to eq(clubsA.suit)
+      expect(foundation.pile[0].value).to eq(clubsA.value)
     end
 
     it 'requires all following cards to be of the same suit' do
