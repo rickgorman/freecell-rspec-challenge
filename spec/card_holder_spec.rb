@@ -4,27 +4,33 @@ require 'card'
 
 describe CardHolder do
 
-  describe '#initialize' do
-    cardholder = CardHolder.new
-
-    it 'creates an empty pile of cards' do
-      expect(cardholder.pile).to eq([])
-    end
-  end
-
   describe "#pop" do
     cardholder = CardHolder.new
 
-    hearts_ace = Card.new(:hearts, :ace)
-    hearts_two = Card.new(:hearts, :deuce)
-    cardholder.append(hearts_ace)
+    heartsA = Card.new(:hearts, :ace)
+    hearts2 = Card.new(:hearts, :deuce)
+    cardholder.append(heartsA)
 
     it 'removes and returns the top card' do
-      expect(cardholder.pop).to eq(hearts_ace)
+      expect(cardholder.pop).to eq(heartsA)
 
-      cardholder.append(hearts_ace)
-      cardholder.append(hearts_deuce)
-      expect(cardholder.pop).to eq(hearts_deuce)
+      cardholder.append(heartsA)
+      cardholder.append(hearts2)
+      expect(cardholder.pop).to eq(hearts2)
+    end
+  end
+
+  describe "#count" do
+
+    it 'returns the correct number of cards' do
+      cardholder = CardHolder.new
+
+      heartsA = Card.new(:hearts, :ace)
+      hearts2 = Card.new(:hearts, :deuce)
+      cardholder.append(heartsA)
+      cardholder.append(hearts2)
+
+      expect(cardholder.count).to be(2)
     end
   end
 
