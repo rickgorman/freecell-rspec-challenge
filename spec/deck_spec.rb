@@ -30,11 +30,24 @@ describe Deck do
     end
   end
 
+  let(:deck) do
+    Deck.new(cards.dup)
+  end
+
+  let(:cards) do
+    cards = [
+      Card.new(:spades, :king),
+      Card.new(:spades, :queen),
+      Card.new(:spades, :jack)
+    ]
+  end  
+
   it "does not expose its cards directly" do
     expect(deck).not_to respond_to(:cards)
   end
 
   describe "#take" do
+    before(:each) { deck = Deck.new }
     # **use the front of the cards array as the top**
     it "takes cards off the top of the deck" do
       expect(deck.take(1)).to eq(cards[0..0])
