@@ -51,7 +51,8 @@ class Card
   def color
   end
 
-  def goes_under?(card)
+  # is it legal to put this card under the other_card ala FreeCell rules?
+  def goes_under?(other_card)
   end
 
   # Compares two cards to see if they're equal in suit & value.
