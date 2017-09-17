@@ -1,7 +1,6 @@
 require 'rspec'
 require 'game'
 require 'cascade'
-require 'byebug'
 
 class Foundation
   attr_accessor :foundations, :cascades, :freecells
@@ -97,9 +96,21 @@ describe Game do
 
     it 'avoids making an invalid move by raising an exception' do
       cascade1 = double("cascade")
-      allow(cascade1).to receive(:append).and_raise("nope")
+      allow(cascade1).to receive(:append).and_raise("invalid move")
 
       expect { game.move(game.cascades[0], cascade1) }.to raise_error("invalid move")
+    end
+
+    it "doesn't change any CardHolders for an invalid move" do
+      spadesA = Card.new(:spades, :ace)
+      spades2 = Card.new(:spades, :deuce)
+      game.cascades[0].append(spadesA, :dealing)
+      game.cascades[1].append(spades2, :dealing)
+
+      expect { game.move(game.cascades[0], game.cascades[1]) }.to raise_error("invalid move")
+
+      expect(game.cascades[0].peek).to eq(spadesA)
+      expect(game.cascades[1].peek).to eq(spades2)
     end
   end
 end
