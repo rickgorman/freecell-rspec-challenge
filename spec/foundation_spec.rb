@@ -1,12 +1,18 @@
 require 'rspec'
 require 'foundation'
+require 'byebug'
+require 'card'
+
+class Foundation
+  attr_accessor :pile
+end
 
 describe Foundation do
 
-  let(:clubsA) { double("card", :suit => :clubs, :value => :ace) }
-  let(:clubs2) { double("card", :suit => :clubs, :value => :deuce) }
-  let(:clubs3) { double("card", :suit => :clubs, :value => :three) }
-  let(:hearts2) { double("card", :suit => :hearts, :value => :deuce) }
+  let(:clubsA) { double("card", :suit => :clubs, :value => :ace, :ranking => 1) }
+  let(:clubs2) { double("card", :suit => :clubs, :value => :deuce, :ranking => 2) }
+  let(:clubs3) { double("card", :suit => :clubs, :value => :three, :ranking => 3) }
+  let(:hearts2) { double("card", :suit => :hearts, :value => :deuce, :ranking => 2) }
 
   describe '#append' do
 
@@ -57,7 +63,9 @@ describe Foundation do
     end
 
     it 'returns true when holding all cards of a single suit' do
-      cards.each { |card| foundation.append(card) }
+      fake_pile = []
+      cards.each { |card| fake_pile << card }
+      foundation.pile = fake_pile
 
       expect(foundation.completed?).to be true
     end

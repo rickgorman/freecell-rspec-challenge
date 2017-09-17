@@ -1,5 +1,6 @@
 require 'rspec'
 require 'deck'
+require 'byebug'
 
 ### deck_spec.rb -- sourced from blackjack practice assessment
 
@@ -40,28 +41,29 @@ describe Deck do
       Card.new(:spades, :queen),
       Card.new(:spades, :jack)
     ]
-  end  
+  end
 
   it "does not expose its cards directly" do
     expect(deck).not_to respond_to(:cards)
   end
 
-  describe "#take" do
+  describe "#deal_a_card" do
     before(:each) { deck = Deck.new }
     # **use the front of the cards array as the top**
-    it "takes cards off the top of the deck" do
-      expect(deck.take(1)).to eq(cards[0..0])
-      expect(deck.take(2)).to eq(cards[1..2])
+    it "takes a card off the top of the deck" do
+      expect(deck.deal_a_card).to eq(cards[0])
     end
 
     it "removes cards from deck on take" do
-      deck.take(2)
-      expect(deck.count).to eq(1)
+      deck.deal_a_card
+      expect(deck.count).to eq(2)
     end
 
     it "doesn't allow you to take more cards than are in the deck" do
+      3.times { deck.deal_a_card }
+
       expect do
-        deck.take(4)
+        deck.deal_a_card
       end.to raise_error("not enough cards")
     end
   end

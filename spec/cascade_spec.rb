@@ -1,13 +1,17 @@
 require 'rspec'
 require 'cascade'
+require 'card'
+
+require 'byebug'
 
 describe Cascade do
 
-  let(:clubsA) { double("card", :suit => :clubs, :value => :ace) }
-  let(:clubs2) { double("card", :suit => :clubs, :value => :deuce) }
-  let(:clubs3) { double("card", :suit => :clubs, :value => :three) }
-  let(:heartsA) { double("card", :suit => :hearts, :value => :ace) }
-  let(:hearts2) { double("card", :suit => :hearts, :value => :deuce) }
+  let(:clubsA) { Card.new(:clubs, :ace) }
+  let(:clubs2) { Card.new(:clubs, :deuce) }
+  let(:clubs3) { Card.new(:clubs, :three) }
+  let(:heartsA) { Card.new(:hearts, :ace) }
+  let(:hearts2) { Card.new(:hearts, :deuce) }
+  let(:hearts3) { Card.new(:hearts, :three) }
 
   describe '#append' do
 
@@ -22,9 +26,8 @@ describe Cascade do
     context 'when containing one or more cards' do
       it 'only allows a card that is one lower in rank and of the opposite color' do
         cascade.append(hearts2)
-        expect { cascade.append(heartsA) }.to raise_error("wrong color")
-        expect { cascade.append(clubs3) }.to raise_error("wrong rank")
-
+        expect { cascade.append(hearts3) }.to raise_error("invalid card")
+        expect { cascade.append(clubs3) }.to raise_error("invalid card")
         expect(cascade.append(clubsA)).to be_truthy
       end
     end
@@ -32,7 +35,7 @@ describe Cascade do
     context 'when dealing' do
       it 'allows any card to be placed on top of any other card' do
         cascade.append(hearts2)
-        expect(cascade.append(heartsA, :dealing)).to be_truthy
+        expect(cascade.append(hearts3, :dealing)).to be_truthy
       end
     end
   end

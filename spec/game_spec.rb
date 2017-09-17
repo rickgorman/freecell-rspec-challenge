@@ -1,6 +1,7 @@
 require 'rspec'
 require 'game'
 require 'cascade'
+require 'byebug'
 
 class Foundation
   attr_accessor :foundations, :cascades, :freecells
@@ -28,7 +29,9 @@ describe Game do
 
     it 'deals out all 52 cards' do
       expect(game.deck.count).to eq(0)
-      expect(game.cascades.reduce(&:count)).to eq(52)
+
+      count = game.cascades.reduce(0) { |acc, cascade| acc + cascade.pile.count }
+      expect(count).to eq(52)
     end
   end
 

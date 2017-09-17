@@ -21,16 +21,46 @@ describe CardHolder do
   end
 
   describe "#count" do
+    let(:cardholder) { CardHolder.new }
+    let(:heartsA) { Card.new(:hearts, :ace) }
+    let(:hearts2) { Card.new(:hearts, :deuce) }
 
     it 'returns the correct number of cards' do
-      cardholder = CardHolder.new
 
-      heartsA = Card.new(:hearts, :ace)
-      hearts2 = Card.new(:hearts, :deuce)
       cardholder.append(heartsA)
       cardholder.append(hearts2)
 
       expect(cardholder.count).to eq(2)
+    end
+  end
+
+  describe "#empty?" do
+    let(:freecell) { FreeCell.new }
+    let(:hearts2) { Card.new(:hearts, :deuce) }
+
+    context 'when empty' do
+      it 'returns true' do
+        expect(freecell.empty?).to be true
+      end
+    end
+
+    context 'when occupied' do
+      it 'returns false' do
+        freecell.append(hearts2)
+        expect(freecell.empty?).to be false
+      end
+    end
+  end
+
+  describe "#peek" do
+    let(:cardholder) { CardHolder.new }
+    let(:heartsA) { Card.new(:hearts, :ace) }
+    let(:hearts2) { Card.new(:hearts, :deuce) }
+
+    it 'reveals the top card' do
+      cardholder.append(heartsA)
+
+      expect(cardholder.peek).to eq(heartsA)
     end
   end
 
