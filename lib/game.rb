@@ -44,6 +44,11 @@ class Game
 
   # potential helper method
   def populate_cascades
+    i = 0
+    until @deck.count == 0
+      @cascades[i % 8].append(deck.deal_a_card, :dealing)
+      i += 1
+    end
   end
 
   def acquire_move
