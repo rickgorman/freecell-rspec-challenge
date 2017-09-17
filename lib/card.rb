@@ -48,6 +48,12 @@ class Card
     @suit, @value = suit, value
   end
 
+  def color
+  end
+
+  def goes_under?(card)
+  end
+
   # Compares two cards to see if they're equal in suit & value.
   def ==(other_card)
     return false if other_card.nil?

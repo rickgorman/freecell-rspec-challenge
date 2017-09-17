@@ -29,7 +29,9 @@ describe FreeCell do
   end
 
   describe "#empty?" do
-    
+
+    let(:freecell) { FreeCell.new }
+
     context 'when empty' do
       it 'returns true' do
         expect(freecell.empty?).to be true

@@ -35,4 +35,8 @@ class Deck
     taken
   end
 
+  def shuffle!
+    @cards.shuffle!
+  end
+
 end

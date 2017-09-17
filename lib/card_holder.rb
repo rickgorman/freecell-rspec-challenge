@@ -9,4 +9,10 @@ class CardHolder
     @pile << card
   end
 
+  def pop
+  end
+
+  def count
+  end
+
 end

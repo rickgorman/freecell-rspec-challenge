@@ -32,7 +32,7 @@ describe Cascade do
     context 'when dealing' do
       it 'allows any card to be placed on top of any other card' do
         cascade.append(hearts2)
-        expect(cascade.append(heartsA, :dealing)).to be truthy
+        expect(cascade.append(heartsA, :dealing)).to be_truthy
       end
     end
   end

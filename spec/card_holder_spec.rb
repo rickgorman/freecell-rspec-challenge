@@ -30,7 +30,7 @@ describe CardHolder do
       cardholder.append(heartsA)
       cardholder.append(hearts2)
 
-      expect(cardholder.count).to be(2)
+      expect(cardholder.count).to eq(2)
     end
   end
 

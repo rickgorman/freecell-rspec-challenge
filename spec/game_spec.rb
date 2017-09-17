@@ -38,10 +38,10 @@ describe Game do
 
     context 'all the cards are in the Foundations' do
       it 'returns true' do
-        game.foundation[0] = completed_foundation
-        game.foundation[1] = completed_foundation
-        game.foundation[2] = completed_foundation
-        game.foundation[3] = completed_foundation
+        game.foundations[0] = completed_foundation
+        game.foundations[1] = completed_foundation
+        game.foundations[2] = completed_foundation
+        game.foundations[3] = completed_foundation
 
         expect(game.won?).to be true
       end
