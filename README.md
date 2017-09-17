@@ -1,9 +1,9 @@
 9/14/2017
-# freecell rspec
-# rickgorman
+* freecell rspec
+* rickgorman
 
 -----------------
-# FreeCell Rules:
+* FreeCell Rules:
 -----------------
 Construction and layout
 
@@ -22,20 +22,19 @@ Victory
 Directions taken from https://en.wikipedia.org/wiki/FreeCell
 
 
-#  Class Inheritance Hierarchy
-#
-#                        +------------+
-#                        | CardHolder |
-#                        +------------+
-#                              |
-#                 +------------+---------------+
-#                 |            |               |
-#         +----------+   +------------+   +---------+
-#         | FreeCell |   | Foundation |   | Cascade |
-#         +----------+   +------------+   +---------+           
-#
-#
-#         +--------+   +--------+   +------+
-#         |  Deck  |   |  Card  |   | Game |
-#         +--------+   +--------+   +------+
-#
+  Class Inheritance Hierarchy
+
+                        +------------+
+                        | CardHolder |
+                        +------------+
+                              |
+                 +------------+---------------+
+                 |            |               |
+         +----------+   +------------+   +---------+
+         | FreeCell |   | Foundation |   | Cascade |
+         +----------+   +------------+   +---------+           
+
+
+         +--------+   +--------+   +------+
+         |  Deck  |   |  Card  |   | Game |
+         +--------+   +--------+   +------+
