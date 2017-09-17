@@ -3,11 +3,17 @@
 
 ## Recommended Order
 card_spec.rb
+
 deck_spec.rb
+
 card_holder_spec.rb
+
 free_cell_spec.rb
+
 foundation_spec.rb
+
 cascade_spec.rb
+
 game_spec.rb
 
 
