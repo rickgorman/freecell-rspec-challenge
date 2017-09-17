@@ -1,6 +1,7 @@
------------------
-* FreeCell Rules:
------------------
+# FreeCell
+
+* Rules:
+
 Construction and layout
 
 * Cards are dealt face-up into eight Cascades, four of which comprise seven cards and four of which comprise six.
