@@ -1,3 +1,4 @@
+# Parent class for objects that hold cards
 class CardHolder
   attr_reader :pile
 
