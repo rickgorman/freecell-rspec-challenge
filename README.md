@@ -2,19 +2,13 @@
 
 
 ## Recommended Order
-card_spec.rb
-
-deck_spec.rb
-
-card_holder_spec.rb
-
-free_cell_spec.rb
-
-foundation_spec.rb
-
-cascade_spec.rb
-
-game_spec.rb
+1. card_spec.rb
+2. deck_spec.rb
+3. card_holder_spec.rb
+4. free_cell_spec.rb
+5. foundation_spec.rb
+6. cascade_spec.rb
+7. game_spec.rb
 
 
 ### Rules
