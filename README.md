@@ -1,25 +1,33 @@
 # FreeCell
 
-* Rules:
 
-Construction and layout
+## Recommended Order
+card_spec.rb
+deck_spec.rb
+card_holder_spec.rb
+free_cell_spec.rb
+foundation_spec.rb
+cascade_spec.rb
+game_spec.rb
 
+
+### Rules
 * Cards are dealt face-up into eight Cascades, four of which comprise seven cards and four of which comprise six.
 * The top card of each Cascade begins a tableau.
 * Tableaux must be built down by alternating colors.
 * Foundations are built up by suit.
 
-Moves
+### Moves
 * Any cell card or top card of any cascade may be moved to build on a tableau, or moved to an empty cell, an empty cascade, or its foundation.
 * Complete or partial tableaus may be moved to build on existing tableaus, or moved to empty cascades.
 
-Victory
+### Victory
 * The game is won after all cards are moved to their foundation piles.
 
 Directions taken from https://en.wikipedia.org/wiki/FreeCell
 
 
-  Class Inheritance Hierarchy
+## Class Inheritance Hierarchy
 
                         +------------+
                         | CardHolder |
