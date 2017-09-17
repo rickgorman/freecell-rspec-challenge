@@ -27,4 +27,21 @@ describe FreeCell do
     end
 
   end
+
+  describe "#empty?" do
+    
+    context 'when empty' do
+      it 'returns true' do
+        expect(freecell.empty?).to be true
+      end
+    end
+
+    context 'when occupied' do
+      it 'returns false' do
+        freecell.append(hearts2)
+        expect(freecell.empty?).to be false
+      end
+    end
+
+  end
 end
