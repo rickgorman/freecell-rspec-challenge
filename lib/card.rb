@@ -1,5 +1,5 @@
 ### card.rb -- sourced from Practice Assessment #2 (BlackJack)
-
+require 'colorize'
 
 # -*- coding: utf-8 -*-
 
@@ -68,6 +68,10 @@ class Card
   end
 
   def to_s
+    value == :ace ? text_color = :yellow : text_color = :white
+    color == :black ? bg_color = :light_black : bg_color = :red
+
     "#{VALUE_STRINGS[value]} #{SUIT_STRINGS[suit]}"
+      .colorize(:color => text_color, :background => bg_color)
   end
 end

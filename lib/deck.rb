@@ -11,6 +11,8 @@ class Deck
   end
 
   def initialize(cards = Deck.all_cards)
+    @cards = cards
+    shuffle!
   end
 
   # Returns the number of cards in the deck.
@@ -21,7 +23,10 @@ class Deck
   def deal_a_card
   end
 
+  private
+
   def shuffle!
+    @cards.shuffle!
   end
 
 end

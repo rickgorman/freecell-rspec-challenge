@@ -22,7 +22,11 @@ class CardHolder
   end
 
   def to_s
-    @piles.reduce("") { |acc, card| acc += "#{card}  " }
+    if @pile.empty?
+      "[]"
+    else
+      @pile.reduce("") { |acc, card| acc += "#{card}  " }
+    end
   end
 
   def empty?

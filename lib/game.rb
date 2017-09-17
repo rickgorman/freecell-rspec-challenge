@@ -4,7 +4,7 @@ require_relative 'foundation'
 require_relative 'deck'
 
 class Game
-  FREECELL_INDICES = {'c1' => 0, 'c2' => 1, 'c3' => 2, 'c4' => 3}
+  FREECELL_INDICES = {'e1' => 0, 'e2' => 1, 'e3' => 2, 'e4' => 3}
   FOUNDATION_INDICES = {'f1' => 0, 'f2' => 1, 'f3' => 2, 'f4' => 3}
   CASCADE_INDICES = {'1' => 0, '2' => 1, '3' => 2, '4' => 3,
     '5' => 4, '6' => 5, '7' => 6, '8' => 7}
@@ -22,6 +22,14 @@ class Game
 
   # moves a card from one CardHolder to another
   def move(source, destination)
+    source_card = source.peek
+
+    begin
+      destination.append(source_card)
+      source.pop
+    rescue
+      raise "invalid move"
+    end
   end
 
   def play
@@ -32,8 +40,7 @@ class Game
         src, dest = parse_move(acquire_move)
         move(src, dest)
       rescue StandardError => e
-        Kernel.exit(0) if e.is_a?(SignalException)
-        puts "error: #{e.message}. Try again."
+        puts "error: #{e.message}"
       end
     end
 
@@ -51,10 +58,14 @@ class Game
     print "Your move: "
 
     begin
-      src_dest_pair = gets.chomp.split(',')
-      raise "bad input" unless valid_input(src_dest_pair)
-    rescue
-      puts "Invalid move. Try again."
+      src_dest_pair = gets.chomp.split(' ')
+      raise "invalid input" unless valid_input?(src_dest_pair)
+    rescue Exception => e
+      if e.is_a?(SignalException)
+        Kernel.exit(0)
+      end
+      puts "Invalid move. Try again. error: #{e.message}"
+      retry
     end
 
     src_dest_pair
@@ -62,26 +73,28 @@ class Game
 
   def parse_move(src_dest_pair)
     src_text, dest_text = src_dest_pair
-    [container(src), container(dest)]
+    [container(src_text), container(dest_text)]
   end
 
   def container(str)
     case
-    when FREECELL_INDICES.keys.include?(src_text)
-      @freecells[FREECELL_INDICES[src_text]]
-    when FOUNDATION_INDICES.keys.include?(src_text)
-      @foundations[FOUNDATION_INDICES[src_text]]
-    when CASCADE_INDICES.keys.include?(src_text)
-      @cascades[CASCADE_INDICES[src_text]]
+    when FREECELL_INDICES.keys.include?(str)
+      @freecells[FREECELL_INDICES[str]]
+    when FOUNDATION_INDICES.keys.include?(str)
+      @foundations[FOUNDATION_INDICES[str]]
+    when CASCADE_INDICES.keys.include?(str)
+      @cascades[CASCADE_INDICES[str]]
     end
   end
 
   def display_help_message
-    puts "Enter source pile and destination pile, separated by a comma."
-    puts "- Freecells are: c1, c2, c3, c4."
-    puts "- Foundations are: f1, f2, f3, f4."
-    puts "- Cascades are: 1, 2, 3, 4, 5, 6, 7, 8"
-    puts "Exaple -- To move from cascade 1 to freeCell 1, use: 1,c1"
+    puts "ENTER YOUR MOVE:"
+    puts "  Instruction:"
+    puts "  Enter source pile and destination pile, separated by a space."
+    # puts "  - Freecells are:   e1, e2, e3, e4."
+    # puts "  - Foundations are: f1, f2, f3, f4."
+    # puts "  - Cascades are:     1,  2,  3,  4,  5,  6,  7,  8"
+    puts "  Example -- To move from cascade 1 to freeCell 1, use: [1 e1]"
   end
 
   def valid_input?(arr)
@@ -93,6 +106,7 @@ class Game
   end
 
   def victory
+    render
     puts "You're a winner!"
   end
 
@@ -101,21 +115,46 @@ class Game
   end
 
   def render
-    freecells_str = ""
-    @freecells.each { |cell| freecells_str << "#{cell} " }
+    system("clear")
+    freecells_str = "e1\te2\te3\te4\n\n"
+    freecells_str += "\t\t"
+    @freecells.each { |cell| freecells_str << "#{cell}\t" }
 
     foundations_str = ""
-    @foundations.each { |foundation| foundations_str << "#{foundation}\n" }
+    foundation_prefixes = %w(f1 f2 f3 f4)
+    @foundations.each do |foundation|
+      foundations_str += "#{foundation_prefixes.shift}:\t\t"
+      foundations_str << "#{foundation}\n"
+    end
 
-    cascades_str = ""
-    @cascades.each { |cascade| cascades_str << "#{cascade}\n" }
+    cascades_str = "1\t2\t3\t4\t5\t6\t7\t8\t\n\n"
+    cascade_matrix = []
+    longest_cascade = 0
+    @cascades.each do |cascade|
+      len = cascade.pile.length
+      longest_cascade = len if len > longest_cascade
+      cascade_matrix << cascade.pile
+    end
+
+    (0...longest_cascade).each do |col|
+      (0...8).each do |row|
+        card = cascade_matrix[row][col]
+        if card.nil?
+          cascades_str << "\t"
+        else
+          cascades_str << "#{card}\t"
+        end
+      end
+
+      cascades_str << "\n"
+    end
 
     puts "\n"
-    puts "freecells: #{freecells_str}"
+    puts "FREECELLS:\t#{freecells_str}"
     puts "\n\n"
-    puts "foundations: #{foundations_str}"
+    puts "FOUNDATIONS:\n#{foundations_str}"
     puts "\n\n"
-    puts "cascades: #{cascades_str}"
+    puts "CASCADES: \n#{cascades_str}"
     puts "\n\n"
   end
 
