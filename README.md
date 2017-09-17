@@ -1,5 +1,3 @@
-* freecell rspec
-
 -----------------
 * FreeCell Rules:
 -----------------
