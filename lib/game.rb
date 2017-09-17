@@ -4,6 +4,11 @@ require_relative 'foundation'
 require_relative 'deck'
 
 class Game
+  FREECELL_INDICES = {'c1' => 0, 'c2' => 1, 'c3' => 2, 'c4' => 3}
+  FOUNDATION_INDICES = {'f1' => 0, 'f2' => 1, 'f3' => 2, 'f4' => 3}
+  CASCADE_INDICES = {'1' => 0, '2' => 1, '3' => 2, '4' => 3,
+    '5' => 4, '6' => 5, '7' => 6, '8' => 7}
+
   attr_reader :deck, :cascades, :foundations, :freecells
 
   def initialize(deck = Deck.new.shuffle!)
@@ -24,8 +29,10 @@ class Game
       render
       begin
         display_help_message
-        move(acquire_move)
+        src, dest = parse_move(acquire_move)
+        move(src, dest)
       rescue StandardError => e
+        Kernel.exit(0) if e.is_a?(SignalException)
         puts "error: #{e.message}. Try again."
       end
     end
@@ -40,13 +47,29 @@ class Game
     print "Your move: "
 
     begin
-      input = gets.chomp.split(',')
-      raise "bad input" unless valid_input(input)
+      src_dest_pair = gets.chomp.split(',')
+      raise "bad input" unless valid_input(src_dest_pair)
     rescue
       puts "Invalid move. Try again."
     end
 
-    input
+    src_dest_pair
+  end
+
+  def parse_move(src_dest_pair)
+    src_text, dest_text = src_dest_pair
+    [container(src), container(dest)]
+  end
+
+  def container(str)
+    case
+    when FREECELL_INDICES.keys.include?(src_text)
+      @freecells[FREECELL_INDICES[src_text]]
+    when FOUNDATION_INDICES.keys.include?(src_text)
+      @foundations[FOUNDATION_INDICES[src_text]]
+    when CASCADE_INDICES.keys.include?(src_text)
+      @cascades[CASCADE_INDICES[src_text]]
+    end
   end
 
   def display_help_message
@@ -58,7 +81,10 @@ class Game
   end
 
   def valid_input?(arr)
-    moves = %w(c1 c2 c3 c4 f1 f2 f3 f4 1 2 3 4 5 6 7 8)
+    return false if arr[0] == arr[1]
+
+    moves = FREECELL_INDICES.keys + FOUNDATION_INDICES.keys +
+      CASCADE_INDICES.keys
     moves.include?(arr[0]) && moves.include?(arr[1])
   end
 
@@ -80,6 +106,7 @@ class Game
     cascades_str = ""
     @cascades.each { |cascade| cascades_str << "#{cascade}\n" }
 
+    puts "\n"
     puts "freecells: #{freecells_str}"
     puts "\n\n"
     puts "foundations: #{foundations_str}"
