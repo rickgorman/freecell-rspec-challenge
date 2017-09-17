@@ -77,7 +77,7 @@ class Game
     puts "- Freecells are: c1, c2, c3, c4."
     puts "- Foundations are: f1, f2, f3, f4."
     puts "- Cascades are: 1, 2, 3, 4, 5, 6, 7, 8"
-    puts "Exaple -- To move from cascade 1 to freeCell 1, use: c1,1"
+    puts "Exaple -- To move from cascade 1 to freeCell 1, use: 1,c1"
   end
 
   def valid_input?(arr)
