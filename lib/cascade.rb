@@ -9,11 +9,11 @@ class Cascade < CardHolder
       @pile << card
     elsif empty?
       @pile << card
-    elsif card.goes_under?(@pile[0])
+    elsif card.goes_under?(peek)
       @pile << card
     else
-      raise "invalid card" if card.color == @pile[0].color
-      raise "invalid card" unless card.goes_under?(@pile[0])
+      raise "invalid card" if card.color == peek.color
+      raise "invalid card" unless card.goes_under?(peek)
     end
   end
 

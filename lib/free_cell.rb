@@ -10,7 +10,7 @@ class FreeCell < CardHolder
   end
 
   def to_s
-    empty? ? '--' : "#{@pile[0]}"
+    empty? ? '--' : "#{peek}"
   end
 
 end
