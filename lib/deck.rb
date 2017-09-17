@@ -11,8 +11,6 @@ class Deck
   end
 
   def initialize(cards = Deck.all_cards)
-    @cards = cards
-    shuffle!
   end
 
   # Returns the number of cards in the deck.
@@ -26,7 +24,6 @@ class Deck
   private
 
   def shuffle!
-    @cards.shuffle!
   end
 
 end

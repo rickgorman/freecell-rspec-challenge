@@ -29,6 +29,10 @@ describe Deck do
       deck = Deck.new
       expect(deck.count).to eq(52)
     end
+
+    it 'shuffles the deck' do
+      expect(deck.cards).to receive(:shuffle)
+    end
   end
 
   let(:deck) do

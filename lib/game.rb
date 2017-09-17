@@ -22,14 +22,6 @@ class Game
 
   # moves a card from one CardHolder to another
   def move(source, destination)
-    source_card = source.peek
-
-    begin
-      destination.append(source_card)
-      source.pop
-    rescue
-      raise "invalid move"
-    end
   end
 
   def play
@@ -91,9 +83,6 @@ class Game
     puts "ENTER YOUR MOVE:"
     puts "  Instruction:"
     puts "  Enter source pile and destination pile, separated by a space."
-    # puts "  - Freecells are:   e1, e2, e3, e4."
-    # puts "  - Foundations are: f1, f2, f3, f4."
-    # puts "  - Cascades are:     1,  2,  3,  4,  5,  6,  7,  8"
     puts "  Example -- To move from cascade 1 to freeCell 1, use: [1 e1]"
   end
 
