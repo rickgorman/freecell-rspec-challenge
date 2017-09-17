@@ -1,6 +1,7 @@
 require 'rspec'
 require 'game'
 require 'cascade'
+require 'byebug'
 
 class Foundation
   attr_accessor :foundations, :cascades, :freecells
@@ -92,6 +93,18 @@ describe Game do
     it 'makes a valid move and returns true' do
       expect(game.move(game.cascades[0], game.freecells[1])).to be_truthy
       expect(game.move(game.freecells[1], game.freecells[2])).to be_truthy
+    end
+
+    it 'moves a card from cascade to cascade' do
+      before = game.cascades[0].peek
+      spadesA = Card.new(:spades, :ace)
+      spades2 = Card.new(:hearts, :deuce)
+      game.cascades[0].append(spadesA, :dealing)
+      game.cascades[1].append(spades2, :dealing)
+
+      expect(game.move(game.cascades[0], game.cascades[1])).to be_truthy
+      expect(game.cascades[1].peek).to eq(spadesA)
+      expect(game.cascades[0].peek).to eq(before)
     end
 
     it 'avoids making an invalid move by raising an exception' do
