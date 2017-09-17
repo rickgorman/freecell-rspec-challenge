@@ -5,8 +5,6 @@ class FreeCell < CardHolder
 
   # Add a card to this cell
   def append(card)
-    raise "already in use" unless @pile.empty?
-    @pile << card
   end
 
   def to_s
