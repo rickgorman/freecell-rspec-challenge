@@ -44,11 +44,6 @@ class Game
 
   # potential helper method
   def populate_cascades
-    i = 0
-    until @deck.count == 0
-      @cascades[i % 8].append(deck.deal_a_card, :dealing)
-      i += 1
-    end
   end
 
   def acquire_move
@@ -151,5 +146,11 @@ class Game
     puts "CASCADES: \n#{cascades_str}"
     puts "\n\n"
   end
+
+end
+
+if __FILE__ == $PROGRAM_NAME
+
+  Game.new.play
 
 end
