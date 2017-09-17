@@ -1,6 +1,4 @@
-9/14/2017
 * freecell rspec
-* rickgorman
 
 -----------------
 * FreeCell Rules:
