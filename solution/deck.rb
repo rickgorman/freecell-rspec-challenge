@@ -26,17 +26,13 @@ class Deck
     @cards.count
   end
 
-  # Takes `n` cards from the top of the deck.
-  def take(n)
-    raise EmptyDeckException.new("not enough cards") unless n <= count
-
-    taken = []
-    n.times { taken << @cards.shift }
-    taken
+  # Takes a card from the top of the deck.
+  def deal_a_card
+    raise "not enough cards" if count == 0
+    @cards.shift
   end
 
   def shuffle!
-    @cards.shuffle!
   end
 
 end

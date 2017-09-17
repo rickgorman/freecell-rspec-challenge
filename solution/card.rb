@@ -13,6 +13,7 @@ class Card
   }
 
   VALUE_STRINGS = {
+    :ace   => "A",
     :deuce => "2",
     :three => "3",
     :four  => "4",
@@ -24,8 +25,7 @@ class Card
     :ten   => "10",
     :jack  => "J",
     :queen => "Q",
-    :king  => "K",
-    :ace   => "A"
+    :king  => "K"
   }
 
   # Returns an array of all suits.
@@ -49,10 +49,34 @@ class Card
   end
 
   def color
+    case suit
+    when :clubs, :spades
+      :black
+    when :hearts, :diamonds
+      :red
+    end
+  end
+
+  def ranking
+    num = VALUE_STRINGS[@value].to_i
+    if num == 0
+      case @value
+      when :ace
+        num = 1
+      when :jack
+        num = 11
+      when :queen
+        num = 12
+      when :king
+        num = 13
+      end
+    end
+    num
   end
 
   # is it legal to put this card under the other_card ala FreeCell rules?
   def goes_under?(other_card)
+    ranking == other_card.ranking - 1 && self.color != other_card.color
   end
 
   # Compares two cards to see if they're equal in suit & value.
@@ -65,6 +89,6 @@ class Card
   end
 
   def to_s
-    VALUE_STRINGS[value] + SUIT_STRINGS[suit]
+    "#{VALUE_STRINGS[value]} #{SUIT_STRINGS[suit]}"
   end
 end
