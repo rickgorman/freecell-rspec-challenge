@@ -25,13 +25,16 @@ describe Deck do
   end
 
   describe "#initialize" do
+    let(:deck) { Deck.new }
+    let(:cards) { double("cards")}
+
     it "by default fills itself with 52 cards" do
-      deck = Deck.new
       expect(deck.count).to eq(52)
     end
 
     it 'shuffles the deck' do
-      expect(deck.cards).to receive(:shuffle)
+      deck2 = Deck.new(cards)
+      expect(deck2.cards).to receive(:shuffle!)
     end
   end
 
@@ -52,8 +55,8 @@ describe Deck do
   end
 
   describe "#deal_a_card" do
-    before(:each) { deck = Deck.new }
-    # **use the front of the cards array as the top**
+    before(:each) { deck = Deck.new(cards) }
+
     it "takes a card off the top of the deck" do
       expect(deck.deal_a_card).to eq(cards[0])
     end

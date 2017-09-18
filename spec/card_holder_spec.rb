@@ -35,19 +35,19 @@ describe CardHolder do
   end
 
   describe "#empty?" do
-    let(:freecell) { FreeCell.new }
+    let(:cardholder) { CardHolder.new }
     let(:hearts2) { Card.new(:hearts, :deuce) }
 
     context 'when empty' do
       it 'returns true' do
-        expect(freecell.empty?).to be true
+        expect(cardholder.empty?).to be true
       end
     end
 
     context 'when occupied' do
       it 'returns false' do
-        freecell.append(hearts2)
-        expect(freecell.empty?).to be false
+        cardholder.append(hearts2)
+        expect(cardholder.empty?).to be false
       end
     end
   end
