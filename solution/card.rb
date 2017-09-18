@@ -1,5 +1,5 @@
 ### card.rb -- sourced from Practice Assessment #2 (BlackJack)
-
+require 'colorize'
 
 # -*- coding: utf-8 -*-
 
@@ -49,34 +49,31 @@ class Card
   end
 
   def color
-    case suit
-    when :clubs, :spades
-      :black
-    when :hearts, :diamonds
-      :red
-    end
+    return :black if suit == :clubs || suit == :spades
+    return :red if suit == :hearts || suit == :diamonds
   end
 
   def ranking
-    num = VALUE_STRINGS[@value].to_i
-    if num == 0
-      case @value
+    number = VALUE_STRINGS[value].to_i
+    if number > 0
+      number
+    else
+      case value
       when :ace
-        num = 1
+        1
       when :jack
-        num = 11
+        11
       when :queen
-        num = 12
+        12
       when :king
-        num = 13
+        13
       end
     end
-    num
   end
 
   # is it legal to put this card under the other_card ala FreeCell rules?
   def goes_under?(other_card)
-    ranking == other_card.ranking - 1 && self.color != other_card.color
+    (ranking == other_card.ranking - 1) && color != other_card.color
   end
 
   # Compares two cards to see if they're equal in suit & value.
@@ -89,6 +86,10 @@ class Card
   end
 
   def to_s
+    value == :ace ? text_color = :yellow : text_color = :white
+    color == :black ? bg_color = :light_black : bg_color = :red
+
     "#{VALUE_STRINGS[value]} #{SUIT_STRINGS[suit]}"
+      .colorize(:color => text_color, :background => bg_color)
   end
 end

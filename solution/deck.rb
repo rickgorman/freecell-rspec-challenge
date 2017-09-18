@@ -29,9 +29,11 @@ class Deck
 
   # Takes a card from the top of the deck.
   def deal_a_card
-    raise "not enough cards" if count == 0
-    @cards.shift
+    raise "not enough cards" if @cards.empty?
+    @cards.pop
   end
+
+  private
 
   def shuffle!
     @cards.shuffle!

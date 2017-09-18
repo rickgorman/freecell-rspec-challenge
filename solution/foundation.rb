@@ -7,11 +7,14 @@ class Foundation < CardHolder
   def append(card)
     if empty?
       raise "expecting an ace" unless card.value == :ace
+      @pile << card
+    elsif card.suit != peek.suit
+      raise "wrong suit"
+    elsif card.ranking != peek.ranking + 1
+      raise "wrong rank"
     else
-      raise "wrong suit" unless card.suit == peek.suit
-      raise "wrong rank" unless card.ranking == peek.ranking + 1
+      @pile << card
     end
-    @pile << card
   end
 
   # does this foundation hold all the cards from one suit?

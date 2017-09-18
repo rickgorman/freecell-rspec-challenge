@@ -12,20 +12,59 @@ class Game
   attr_reader :deck, :cascades, :foundations, :freecells
 
   def initialize(deck = Deck.new)
+    @deck = deck
+
+    @cascades = []
+    8.times { @cascades << Cascade.new }
+    @foundations = []
+    4.times { @foundations << Foundation.new }
+    @freecells = []
+    4.times { @freecells << FreeCell.new }
+
+    populate_cascades
   end
 
   def won?
-    @foundations.each do |found|
-      return false unless found.completed?
-    end
-    true
+    @foundations.all? { |foundation| foundation.completed? }
   end
 
   def lost?
+    return false unless @freecells.all? { |freecell| !freecell.empty? }
+
+    available_moves = 0
+
+    # we cant move from the freecells to the foundations
+    @freecells.each do |freecell|
+      @foundations.each do |foundation|
+        begin
+          valid_move?(freecell, foundation)
+        rescue
+        end
+      end
+    end
+
+
+
+    # we cant move from the freecells to the cascades
+
+    # we cant move from the cascades to the foundations
+
+    # we cant move from the cascades to the cascades
+
+    available_moves == 0
   end
 
   # moves a card from one CardHolder to another
   def move(source, destination)
+    raise "no card available" if source.empty?
+
+    card = source.peek
+    begin
+      destination.append(card)
+      source.pop
+    rescue
+      raise "invalid move"
+    end
   end
 
   def play
@@ -49,8 +88,8 @@ class Game
   # potential helper method
   def populate_cascades
     i = 0
-    until @deck.count == 0
-      @cascades[i % 8].append(deck.deal_a_card, :dealing)
+    until deck.count == 0
+      @cascades[i % 8].append(@deck.deal_a_card, :dealing)
       i += 1
     end
   end
