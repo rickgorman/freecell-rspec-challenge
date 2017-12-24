@@ -13,7 +13,7 @@ You'll need a working install of [ruby](https://www.ruby-lang.org/en/documentati
 * `cd freecell`
 * `rspec spec` OR `rspec/<file>` (see file list below)
 
-**When finished**, you can run the game via:
+Your work cycle consists of working to pass a test (or two or five), then running rspec again. **When finished**, you can run the game via:
 * `ruby game.rb`
 
 ## Recommended Completion Order
