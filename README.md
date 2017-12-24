@@ -9,8 +9,8 @@ With 100+ hours experience in Ruby, this might take you 1-2 hours to complete.
 You'll need a working install of [ruby](https://www.ruby-lang.org/en/documentation/installation/).
 
 * `gem install rspec`
-* `git clone https://github.com/rickgorman/freecell.git`
-* `cd freecell`
+* `git clone https://github.com/rickgorman/freecell-rspec-challenge.git`
+* `cd freecell-rspec-challenge`
 * `rspec spec` OR `rspec/<file>` (see file list below)
 
 Your work cycle consists of working to pass a test (or two or five), then running rspec again. **When finished**, you can run the game via:
